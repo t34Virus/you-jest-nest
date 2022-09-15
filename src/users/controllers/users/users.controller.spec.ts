@@ -12,7 +12,7 @@ describe('UsersController', () => {
     controller = module.get<UsersController>(UsersController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+  describe('GET getUsers', () => {
+    it('should return all users')
+  })
 });
