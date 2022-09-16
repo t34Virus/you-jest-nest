@@ -18,6 +18,6 @@ export class UsersService {
   }
 
   fetchUserById(id: number) {
-    return { id, username: 'Bdog', email: 'bdog@email.com' };
+    return this.fakeUsers[id];
   }
 }
