@@ -20,8 +20,8 @@ export class UsersController {
                 email: 'Johhny@Johhny.com'
             },
             {
-                username: 'Zysberg',
-                email: 'Zysberg@Zysberg.com'
+                username: 'Bergie',
+                email: 'Bergie@Bergie.com'
             }
         ]
     }
@@ -34,14 +34,12 @@ export class UsersController {
     @Post('create')
     @UsePipes(new ValidationPipe)
     createUser(@Body() userData: CreateUserDto) {
-        console.log(userData);
-        return {};
+        this.userService.createUser(userData);
     }
 
     @Get(':id')
     getUserById(@Param('id', ParseIntPipe) id: number) {
-        console.log(id);
-        return { id };
+        return this.userService.fetchUserById(id)
     }
 
     @Get('posts')
