@@ -26,7 +26,7 @@ import {
     constructor(private userService: UsersService) {}
   
     @Get()
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     getUsers() {
       return this.userService.fetchUsers();
     }
@@ -34,7 +34,7 @@ import {
     @Post('create')
     @UsePipes(new ValidationPipe())
     createUser(@Body(ValidateCreateUserPipe) userData: CreateUserDto) {
-      console.log(userData.age.toPrecision());
+    //   console.log(userData.age.toPrecision());
       return this.userService.createUser(userData);
     }
   
