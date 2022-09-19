@@ -9,12 +9,13 @@ export class CustomersService {
         { id: 3, email: 'greg@gdog.com', name: "greg greg" },
     ]
 
-    fetchCustomers() {
-        return this.customers;
-    }
     findCustomerById(id: number) {
         return this.customers.find((customers) => 
         customers.id === id);
+    }
+
+    fetchCustomers() {
+        return this.customers;
     }
 
     createCustomer(customerDetails: CreateCustomerType){
