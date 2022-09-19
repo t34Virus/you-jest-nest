@@ -17,7 +17,11 @@ import { CustomersModule } from './customers/customers.module';
   ],
   providers: [
     AppService,
-    UsersService
+    // UsersService,
+    {
+      provide: 'USER_SERVICE',
+      useClass: UsersService 
+    }
   ],
 })
 export class AppModule {}

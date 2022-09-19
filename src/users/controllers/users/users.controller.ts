@@ -14,16 +14,18 @@ import {
     UseGuards,
     UsePipes,
     ValidationPipe,
+    Inject
   } from '@nestjs/common';
   import { Request, Response } from 'express';
+  import { UsersService } from 'src/users/services/users/users.service';
   import { CreateUserDto } from '../../dtos/CreateUser.dto';
   import { AuthGuard } from '../../guards/auth.guard';
   import { ValidateCreateUserPipe } from '../../pipes/validate-create-user.pipe';
-  import { UsersService } from '../../services/users/users.service';
+
   
   @Controller('users')
   export class UsersController {
-    constructor(private userService: UsersService) {}
+    constructor(@Inject('USER_SERVICE') private readonly userService: UsersService) {}
   
     @Get()
     // @UseGuards(AuthGuard)
@@ -45,4 +47,10 @@ import {
         throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
       return user;
     }
+
+    @Get('serialize')
+    hidePasswords() {
+      return this.userService.getUsers();
+    }
+
   }
