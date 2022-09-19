@@ -1,14 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { CreateCustomerType } from 'src/utils/types';
 
 @Injectable()
 export class CustomersService {
-    users = [
-        { id: 1, email: 'tdogg@tdogg.com', createdAt: new Date() },
-        { id: 2, email: 'bdogg@bdog.com', createdAt: new Date() },
-        { id: 3, email: 'greg@gdog.com', createdAt: new Date() },
+    customers = [
+        { id: 1, email: 'tdogg@tdogg.com', name: "tdogg tdogg" },
+        { id: 2, email: 'bdogg@bdog.com', name: "bdogg bdogg" },
+        { id: 3, email: 'greg@gdog.com', name: "greg greg" },
     ]
+
+    fetchCustomers() {
+        return this.customers;
+    }
     findCustomerById(id: number) {
-        return this.users.find((user) => 
-        user.id === id);
+        return this.customers.find((customers) => 
+        customers.id === id);
+    }
+
+    createCustomer(customerDetails: CreateCustomerType){
+        this.customers.push(customerDetails);
+        return;
     }
 }
