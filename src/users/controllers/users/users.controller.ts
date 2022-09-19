@@ -34,8 +34,8 @@ import {
     }
   
     @Post('create')
-    @UsePipes(new ValidationPipe())
-    createUser(@Body(ValidateCreateUserPipe) userData: CreateUserDto) {
+    // @UsePipes(new ValidationPipe())
+    createUser(@Body() userData: CreateUserDto) {
     //   console.log(userData.age.toPrecision());
       return this.userService.createUser(userData);
     }

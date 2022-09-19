@@ -11,7 +11,9 @@ export class UsersService {
     { username: 'GDogg', email: 'greg@gdog.com', password: 'yomama123' },
   ];
   fetchUsers() {
-    return this.fakeUsers;
+    // return this.fakeUsers;
+    return this.fakeUsers.map((user) => plainToClass(SerializedUser, user));
+
   }
 
   getUsers() {
