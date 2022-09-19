@@ -11,8 +11,8 @@ export class UsersService {
     { username: 'GDogg', email: 'greg@gdog.com', password: 'yomama123' },
   ];
   fetchUsers() {
-    // return this.fakeUsers;
-    return this.fakeUsers.map((user) => plainToClass(SerializedUser, user));
+    return this.fakeUsers;
+    // return this.fakeUsers.map((user) => plainToClass(SerializedUser, user));
 
   }
 
@@ -27,5 +27,10 @@ export class UsersService {
 
   fetchUserById(id: number) {
     return this.fakeUsers[id];
+  }
+
+  getUserByUsername(username: string) {
+    return this.fakeUsers.find((fakeUsers) => 
+    fakeUsers.username == username);
   }
 }
