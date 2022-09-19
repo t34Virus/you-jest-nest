@@ -36,7 +36,7 @@ import { SerializedUser } from 'src/utils';
     }
 
     @UseInterceptors(ClassSerializerInterceptor)
-    @Get(':username')
+    @Get('/:username')
     getByUsername(@Param('username') username: string) {
       const user = this.userService.getUserByUsername(username);
       console.log(user);
@@ -49,7 +49,7 @@ import { SerializedUser } from 'src/utils';
       return this.userService.getUsers();
     }
  
-    @Get(':id')
+    @Get('/:id')
     getUserById(@Param('id', ParseIntPipe) id: number) {
       const user = this.userService.fetchUserById(id);
       if (!user)
