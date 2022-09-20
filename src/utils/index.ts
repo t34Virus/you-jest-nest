@@ -1,15 +1,15 @@
 import { Exclude } from "class-transformer";
-import { TypeOrmUser } from "src/typeorm/User";
-
-const entities = [TypeOrmUser];
-export { TypeOrmUser };
-export default entities;
-
+import { User as UserEntity} from "src/typeorm/User";
 export interface User {
     username: string;
     password: string;
     id: number;
+    email: string;
 }
+
+const entities = [UserEntity];
+export {UserEntity};
+export default entities;
 
 export class SerializedUser {
     username: string;

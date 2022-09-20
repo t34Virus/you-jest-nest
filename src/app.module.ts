@@ -6,7 +6,8 @@ import { UsersController } from './users/controllers/users/users.controller';
 import { UsersService } from './users/services/users/users.service';
 import { CustomersModule } from './customers/customers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import entities from './utils';
+import { User } from './typeorm/User'
+
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import entities from './utils';
       username: 'root',
       password: '',
       database: 'tutorial_db',
-      entities: entities,
+      entities: [User],
       synchronize: true   
    })
   ],
@@ -29,11 +30,7 @@ import entities from './utils';
   ],
   providers: [
     AppService,
-    // UsersService,
-    {
-      provide: 'USER_SERVICE',
-      useClass: UsersService 
-    }
+    UsersService
   ],
 })
 export class AppModule {}

@@ -66,6 +66,7 @@ import {
     }
 
     @Post('create')
+    @UsePipes(ValidationPipe)
     createUser(@Body() userData: CreateUserDto) {
     //   console.log(userData.age.toPrecision());
       return this.userService.createUser(userData);

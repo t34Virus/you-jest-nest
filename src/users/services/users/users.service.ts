@@ -1,36 +1,45 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserType } from '../../../utils/types';
 import { plainToClass } from 'class-transformer';
-import { SerializedUser } from 'src/utils';
+import { SerializedUser, User} from 'src/utils';
+import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User as UserEntity} from '../../../typeorm/User'
 
 @Injectable()
 export class UsersService {
-  private fakeUsers = [
-    { username: 'Tdogg', email: 'tdogg@tdogg.com', password: 'yomama123', id: 1 },
-    { username: 'Bdogg', email: 'bdogg@bdog.com', password: 'yomama123', id: 2 },
-    { username: 'GDogg', email: 'greg@gdog.com', password: 'yomama123', id: 3 },
-  ];
+  
+  constructor(
+    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {}
+
+  private users: User[] = [];
+
   fetchUsers() {
-    return this.fakeUsers;
-    // return this.fakeUsers.map((user) => plainToClass(SerializedUser, user));
+    return this.users;
+    // return this.users.map((user) => plainToClass(SerializedUser, user));
 
   }
 
   getUsers() {
-    return this.fakeUsers.map((user) => plainToClass(SerializedUser, user));
+    return this.users.map((user) => plainToClass(SerializedUser, user));
   }
 
   createUser(userDetails: CreateUserType) {
-    this.fakeUsers.push(userDetails);
+    this.users.push(userDetails);
     return;
   }
 
+  createUserDto(createUserDto: CreateUserDto) {
+
+  }
+
   fetchUserById(id: number) {
-    return this.fakeUsers.find((user) => user.id === id);
+    return this.users.find((user) => user.id === id);
   }
 
   getUserByUsername(username: string) {
-    return this.fakeUsers.find((fakeUsers) => 
-    fakeUsers.username == username);
+    return this.users.find((users) => 
+    users.username == username);
   }
 }
