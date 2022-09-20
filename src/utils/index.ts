@@ -1,4 +1,9 @@
 import { Exclude } from "class-transformer";
+import { TypeOrmUser } from "src/typeorm/User";
+
+const entities = [TypeOrmUser];
+export { TypeOrmUser };
+export default entities;
 
 export interface User {
     username: string;
@@ -16,3 +21,5 @@ export class SerializedUser {
         Object.assign(this, partial);
     }
 }
+
+
