@@ -16,12 +16,14 @@ import {
     ValidationPipe,
     Inject,
     UseInterceptors,
-    ClassSerializerInterceptor
+    ClassSerializerInterceptor,
+    UseFilters
   } from '@nestjs/common';
   import { Request, Response } from 'express';
-import { UserNotFoundException } from 'src/users/exceptions/UserNotFound.exception';
+  import { UserNotFoundException } from 'src/users/exceptions/UserNotFound.exception';
+  import { HttpExceptionFilter } from 'src/users/filters/HttpException.filter';
   import { UsersService } from 'src/users/services/users/users.service';
-import { SerializedUser } from 'src/utils';
+  import { SerializedUser } from 'src/utils';
   import { CreateUserDto } from '../../dtos/CreateUser.dto';
   import { AuthGuard } from '../../guards/auth.guard';
   import { ValidateCreateUserPipe } from '../../pipes/validate-create-user.pipe';
@@ -46,12 +48,16 @@ import { SerializedUser } from 'src/utils';
     }
 
     @UseInterceptors(ClassSerializerInterceptor)
+    @UseFilters(HttpExceptionFilter)
     @Get('/id/:id')
     getUserById(@Param('id', ParseIntPipe) id: number) {
       const user = this.userService.fetchUserById(id);
       if (user) return new SerializedUser(user);
       // else throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
-      else throw new UserNotFoundException('User wasn\'t found', HttpStatus.NOT_FOUND)
+      // else throw new UserNotFoundException('User wasn\'t found', HttpStatus.NOT_FOUND)
+      else {
+        throw new UserNotFoundException();
+      }
     }
 
     @Get('serialize')
