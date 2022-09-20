@@ -5,11 +5,22 @@ import { UsersModule } from './users/users.module';
 import { UsersController } from './users/controllers/users/users.controller';
 import { UsersService } from './users/services/users/users.service';
 import { CustomersModule } from './customers/customers.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     UsersModule,
-    CustomersModule
+    CustomersModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '',
+      database: 'tutorial_db',
+      entities: [],
+      synchronize: true   
+   })
   ],
   controllers: [
     AppController,
