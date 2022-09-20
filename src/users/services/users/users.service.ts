@@ -6,9 +6,9 @@ import { SerializedUser } from 'src/utils';
 @Injectable()
 export class UsersService {
   private fakeUsers = [
-    { username: 'Tdogg', email: 'tdogg@tdogg.com', password: 'yomama123' },
-    { username: 'Bdogg', email: 'bdogg@bdog.com', password: 'yomama123' },
-    { username: 'GDogg', email: 'greg@gdog.com', password: 'yomama123' },
+    { username: 'Tdogg', email: 'tdogg@tdogg.com', password: 'yomama123', id: 1 },
+    { username: 'Bdogg', email: 'bdogg@bdog.com', password: 'yomama123', id: 2 },
+    { username: 'GDogg', email: 'greg@gdog.com', password: 'yomama123', id: 3 },
   ];
   fetchUsers() {
     return this.fakeUsers;
@@ -26,7 +26,7 @@ export class UsersService {
   }
 
   fetchUserById(id: number) {
-    return this.fakeUsers[id];
+    return this.fakeUsers.find((user) => user.id === id);
   }
 
   getUserByUsername(username: string) {

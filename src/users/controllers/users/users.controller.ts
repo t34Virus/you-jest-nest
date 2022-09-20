@@ -19,6 +19,7 @@ import {
     ClassSerializerInterceptor
   } from '@nestjs/common';
   import { Request, Response } from 'express';
+import { UserNotFoundException } from 'src/users/exceptions/UserNotFound.exception';
   import { UsersService } from 'src/users/services/users/users.service';
 import { SerializedUser } from 'src/utils';
   import { CreateUserDto } from '../../dtos/CreateUser.dto';
@@ -36,7 +37,7 @@ import { SerializedUser } from 'src/utils';
     }
 
     @UseInterceptors(ClassSerializerInterceptor)
-    @Get('/:username')
+    @Get('/username/:username')
     getByUsername(@Param('username') username: string) {
       const user = this.userService.getUserByUsername(username);
       console.log(user);
@@ -44,17 +45,18 @@ import { SerializedUser } from 'src/utils';
       else throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
     }
 
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('/id/:id')
+    getUserById(@Param('id', ParseIntPipe) id: number) {
+      const user = this.userService.fetchUserById(id);
+      if (user) return new SerializedUser(user);
+      // else throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
+      else throw new UserNotFoundException('User wasn\'t found', HttpStatus.NOT_FOUND)
+    }
+
     @Get('serialize')
     hidePasswords() {
       return this.userService.getUsers();
-    }
- 
-    @Get('/:id')
-    getUserById(@Param('id', ParseIntPipe) id: number) {
-      const user = this.userService.fetchUserById(id);
-      if (!user)
-        throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
-      return user;
     }
 
     @Post('create')
